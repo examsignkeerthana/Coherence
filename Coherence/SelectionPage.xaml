@@ -1,0 +1,24 @@
+﻿<Page x:Class="Coherence.SelectionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Coherence"
+      mc:Ignorable="d" 
+      d:DesignHeight="716" d:DesignWidth="1024"
+      Title="SelectionPage" Background="White">
+
+    <Grid>
+        <StackPanel Width="450" Height="250" Orientation="Vertical" Background="PaleGoldenrod" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20">
+                <TextBlock Text="Course : " FontSize="16" FontWeight="Bold"/>
+                <ComboBox x:Name="cmboboxCourse" SelectionChanged="cmboboxCourse_SelectionChanged" ItemsSource="{Binding}" Width="300" Height="40"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20">
+                <TextBlock Text="Topic :    " FontSize="16"  FontWeight="Bold"/>
+                <ComboBox x:Name="cmboboxTopic" ItemsSource="{Binding}" Width="300" Height="40"/>
+            </StackPanel>
+            <Button x:Name="btnNext" Content="Next" Click="btnNext_Click" Width="100" FontSize="16" Height="40"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,24 @@
+﻿<Page x:Class="Coherence.LandingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Coherence"
+      mc:Ignorable="d" 
+      d:DesignHeight="718" d:DesignWidth="1024"
+      Title="LandingPage" Background="PaleGoldenrod">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Background="PaleGoldenrod" VerticalAlignment="Top" Height="45" Orientation="Vertical" Grid.Row="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0">
+                    <Button Uid="0" Click="Button_Click" FontSize="20" FontWeight="Bold" Width="335" Height="40" Content="QUESTION" BorderBrush="{x:Null}" Foreground="Brown" Background="{x:Null}"/>
+                    <Button Uid="1" Click="Button_Click" FontSize="20" FontWeight="Bold" Width="335" Height="40" Content="CHALLANGE" BorderBrush="{x:Null}" Foreground="Brown" Background="{x:Null}"/>
+                    <Button Uid="2" Click="Button_Click" FontSize="20" FontWeight="Bold" Width="335" Height="40" Content="ALTERNATE" BorderBrush="{x:Null}" Foreground="Brown" Background="{x:Null}"/>
+                </StackPanel>
+                <Grid x:Name="gridCursor" Width="335" Height="5" Margin="10,0" Background="Brown" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <Frame x:Name="QuesFrame" Width="1024" Height="668"></Frame>
+        </StackPanel>
+
+    </Grid>
+</Page>
