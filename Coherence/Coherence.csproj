@@ -71,6 +71,7 @@
     <Compile Include="TestCase.xaml.cs">
       <DependentUpon>TestCase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViisbilityConverter.cs" />
     <Page Include="Alternate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

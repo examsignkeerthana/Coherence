@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
+
 namespace Coherence
 {
     class QuestionModel
@@ -108,12 +109,28 @@ namespace Coherence
             set
             {
                 string[] s = value.Split();
+
                 _type = s[s.Length-1];
                
                 OnPropertyRaised(Type);
                
             }
         }
+
+        string _selectedType;
+        public string SelectedType
+        {
+            get
+            {
+                return _selectedType;
+            }
+            set
+            {
+                _selectedType = value;
+                OnPropertyRaised(SelectedType);
+            }
+        }
+
 
         string _size;
         public string Size
@@ -124,7 +141,10 @@ namespace Coherence
             }
             set
             {
-                _size = value;
+               
+                    _size = value;
+               
+               
                 OnPropertyRaised(Size);
             }
         }

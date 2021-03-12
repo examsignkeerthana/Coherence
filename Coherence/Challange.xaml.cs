@@ -79,6 +79,7 @@ namespace Coherence
             {
                 InsertChallange(questionModel.Qid, challangelst[i]);
             }
+            UpdateChallange(questionModel.Qid);
         }
 
         private string GetQuestionByQid(int qid)
@@ -211,5 +212,6 @@ namespace Coherence
                 MessageBox.Show(ex.Message);
             }
         }
+
     }
 }

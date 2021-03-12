@@ -184,8 +184,8 @@ namespace Coherence
 
         private void btnAddTestCase_Click(object sender, RoutedEventArgs e)
         {
-            var obj = new TestCase(quesId);
-            NavigationService.GetNavigationService(this).Navigate(obj);
+           var obj = new TestCase(quesId);
+           NavigationService.GetNavigationService(this).Navigate(obj);
         }
     }
 }
