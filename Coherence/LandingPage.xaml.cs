@@ -66,6 +66,7 @@ namespace Coherence
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             int index = int.Parse(((Button)e.Source).Uid);
+            Question Ques = new Question();
 
 
             gridCursor.Margin = new Thickness((10 + 335 * index), 0, 0, 0);
@@ -77,7 +78,10 @@ namespace Coherence
                     QuesFrame.NavigationService.Navigate(new Question(topicId));
                     break;
                 case 1:
-                    QuesFrame.NavigationService.Navigate(new Challange(topicId));
+
+                    
+
+                    QuesFrame.NavigationService.Navigate(new Challange(Ques.GetQuesId()));
 
                     //var obj1 = new Challange(topicId);
                     //NavigationService.GetNavigationService(this).Navigate(obj1);
@@ -88,6 +92,8 @@ namespace Coherence
                     //QuesFrame.NavigationService.Navigate(new Challange(GetQuestionIdByTopicAndQuestion(topicId, txtboxQuestion.Text)));
                     break;
                 case 2:
+
+                   // QuesFrame.NavigationService.Navigate(new Allternate(Ques.GetQuesId()));
 
                     //var obj2 = new Alternate(topicId);
                     //NavigationService.GetNavigationService(this).Navigate(obj2);

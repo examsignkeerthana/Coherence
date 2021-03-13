@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text;
 
 namespace Coherence
 {
@@ -29,8 +30,8 @@ namespace Coherence
         ObservableCollection<string> mylist = new ObservableCollection<string>();
         SortedList<int, string> result = new SortedList<int, string>();
         List<string> Data = new List<string>();
-        List<int> demo = new List<int> { 112, 23, 34 };
         int quesId;
+        List<string> type = new List<string> { "Integer","Double","String","Integer[]","Double[]","String[]"};
 
         ObservableCollection<TestCaseModel> tcm = new ObservableCollection<TestCaseModel>();
         ObservableCollection<Parameter> par = new ObservableCollection<Parameter>();
@@ -45,7 +46,7 @@ namespace Coherence
         {
             InitializeComponent();
             quesId = id;
-            
+           // cmboboxType.ItemsSource = type;
         }
 
         
@@ -99,18 +100,47 @@ namespace Coherence
             tcm.RemoveAt(index);
         }
 
+        private void GenreateFile(int Qid)
+        {
+            foreach (TestCaseModel item in tcm)
+            {
+                string input = "Input.txt";
+                string output = "Output.txt";
+                string tempfolderpath = System.IO.Path.GetTempPath();
+
+                string _inputPath = System.IO.Path.Combine(tempfolderpath, input);
+                string _outputPath = System.IO.Path.Combine(tempfolderpath, output);
+
+                StreamWriter sw = new StreamWriter(_inputPath, true, Encoding.ASCII);
+                sw.Write(item.Input);
+                sw.Close();
+
+                StreamWriter writer = new StreamWriter(_outputPath, true, Encoding.ASCII);
+                writer.Write(item.Output);
+                writer.Close();
+
+                InsertTestCases(Qid, _inputPath, _outputPath);
+                File.Delete(_inputPath);
+                File.Delete(_outputPath);
+
+            }
+        }
+
         private void InsertTestCases(int Qid, string inputpath, string outputpath)
         {
             // int id = GetQuestionIdByTopicAndQuestion(courseName, topic, Ques);
-            System.IO.FileStream Ipfs = new System.IO.FileStream(inputpath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+            //System.IO.FileStream Ipfs = new System.IO.FileStream(inputpath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
 
-            BinaryReader br = new BinaryReader(Ipfs);
-            byte[] input = br.ReadBytes((Int32)Ipfs.Length);
+            //BinaryReader br = new BinaryReader(Ipfs);
+            //byte[] input = br.ReadBytes((Int32)Ipfs.Length);
 
-            System.IO.FileStream Opfs = new System.IO.FileStream(outputpath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+            //System.IO.FileStream Opfs = new System.IO.FileStream(outputpath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
 
-            BinaryReader reader = new BinaryReader(Opfs);
-            byte[] output = reader.ReadBytes((Int32)Opfs.Length);
+            //BinaryReader reader = new BinaryReader(Opfs);
+            //byte[] output = reader.ReadBytes((Int32)Opfs.Length);
+
+            byte[] input = FileToByteArray(inputpath);
+            byte[] output = FileToByteArray(outputpath);
 
 
 
@@ -274,8 +304,33 @@ namespace Coherence
 
         }
 
+        private string ByteArrayToFile(string path, byte[] content)
+        {
+            //Save the Byte Array as File.
+            //string filePath = bPath + "\\" + fName;
+            File.WriteAllBytes(path, content);
+
+            MessageBox.Show("File Generated");
+
+            return path;
+        }
+
+        public byte[] FileToByteArray(string fileName)
+        {
+            System.IO.FileStream fs = new System.IO.FileStream(fileName, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+
+            BinaryReader br = new BinaryReader(fs);
+            byte[] fileContent = br.ReadBytes((Int32)fs.Length);
+
+            return fileContent;
+        }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            GenreateFile(quesId);
+
+            MessageBox.Show("Inserted Successfully");
+
             //foreach (TestCaseModel item in tcm)
             //{
             //    Byte[] inp = new UTF8Encoding(true).GetBytes(item.Input);
@@ -297,10 +352,8 @@ namespace Coherence
 
         private void cmboboxType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-             if (cmboboxType.SelectedValue == "Integer[]" || cmboboxType.SelectedValue == "Double[]" || cmboboxType.SelectedValue == "String[]")
-             {
-               
-             }
+            var _type = cmboboxType.SelectedValue;
+           
         }
     }
 }

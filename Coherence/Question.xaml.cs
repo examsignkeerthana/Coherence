@@ -132,8 +132,14 @@ namespace Coherence
             questionModel.Hint = txtboxHint.Text;
 
             InsertQuestion(GetMaxQuestionId() + 1, topicId, questionModel.QuestionStem, questionModel.IsHint, questionModel.Hint);
-            questionModel.Qid = GetMaxQuestionId();
+            quesId = GetMaxQuestionId();
+            questionModel.Qid = quesId;
             question.Add(questionModel);
+        }
+
+        public int GetQuesId()
+        {
+            return GetMaxQuestionId();
         }
 
         private int GetMaxQuestionId()

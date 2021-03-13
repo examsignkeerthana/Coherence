@@ -109,10 +109,11 @@ namespace Coherence
             return s;
         }
 
+        
+
         private bool HasHint(int qid)
         {
-            bool flag = false;
-
+            bool ans = false ;
             try
             {
                 using (SqlConnection con = new SqlConnection(Properties.Settings.Default.database))
@@ -123,20 +124,20 @@ namespace Coherence
 
                     cmd.CommandText = "select HasHint from Question where Qid=" + qid + "";
                     var res = cmd.ExecuteScalar();
-                    int ans = int.Parse(res.ToString());
+                    ans = bool.Parse(res.ToString());
 
-                    if (ans == 1)
-                    { flag = true; }
+                    //if (ans)
+                    //{ flag = true; }
                     //int res = cmd.ExecuteNonQuery();
                     con.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(e.ToString());
             }
 
-            return flag;
+            return ans;
         }
 
         private string GetHintByQid(int qid)

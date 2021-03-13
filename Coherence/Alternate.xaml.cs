@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
+using System.Collections.ObjectModel;
 
 namespace Coherence
 {
@@ -24,5 +26,36 @@ namespace Coherence
         {
             InitializeComponent();
         }
+
+        private bool HasHint(int qid)
+        {
+            bool ans = false;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Properties.Settings.Default.database))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    con.Open();
+
+                    cmd.CommandText = "select HasHint from Question where Qid=" + qid + "";
+                    var res = cmd.ExecuteScalar();
+                    ans = bool.Parse(res.ToString());
+
+                    //if (ans)
+                    //{ flag = true; }
+                    //int res = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+
+            return ans;
+        }
     }
+
+
 }
