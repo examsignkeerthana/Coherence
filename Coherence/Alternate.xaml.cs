@@ -22,9 +22,16 @@ namespace Coherence
     /// </summary>
     public partial class Alternate : Page
     {
+        int qid;
         public Alternate()
         {
             InitializeComponent();
+        }
+
+        public Alternate(int id)
+        {
+            InitializeComponent();
+            qid = id;
         }
 
         private bool HasHint(int qid)

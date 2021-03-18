@@ -11,9 +11,34 @@
     <Page.Resources>
         <local:ViisbilityConverter x:Key="visCon"/>
     </Page.Resources>
-    
+
     <Grid Margin="20">
-        <StackPanel Orientation="Vertical">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="97*"/>
+            <RowDefinition Height="217*"/>
+        </Grid.RowDefinitions>
+
+        <!--Get Parameter Value-->
+        <Border Panel.ZIndex="1" Visibility="Collapsed" 
+                x:Name="GetParameterValue" Width="600" CornerRadius="10" BorderThickness="2" BorderBrush="Black" Background="White">
+            <StackPanel Orientation="Vertical">
+                <TextBox Margin="10,10" Width="130" Height="40" x:Name="txtboxParameterName"/>
+                <ComboBox Margin="10,10" SelectionChanged="cmboboxType_SelectionChanged" Height="40" Width="140" x:Name="cmboboxType" >
+                    <ComboBoxItem Content="Integer" FontSize="16"/>
+                    <ComboBoxItem Content="Double" FontSize="16"/>
+                    <ComboBoxItem Content="String" FontSize="16"/>
+                    <ComboBoxItem Content="Integer[]" FontSize="16"/>
+                    <ComboBoxItem Content="Double[]" FontSize="16"/>
+                    <ComboBoxItem Content="String[]" FontSize="16"/>
+                </ComboBox>
+                <TextBox Margin="10,0" Width="130" Height="40" x:Name="txtboxSize"/>
+                <TextBox Margin="10,0" Width="140" Height="40" x:Name="txtboxLowerBound"/>
+                <TextBox Margin="10,0" Width="140" Height="30" x:Name="txtboxUpperBound"/>
+                <Button Content="OK" x:Name="btnParameter"  Width="100" Height="40"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Orientation="Vertical" Grid.RowSpan="2">
             <StackPanel Width="980" VerticalAlignment="Center" Visibility="Visible" x:Name="stkpnlDisplayQuestion" Orientation="Vertical">
                 <TextBlock Margin="10,10,530,0" Text="Question" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
                 <TextBlock x:Name="txtblckDisplayQues" Width="850" TextWrapping="Wrap" Text="{Binding}" FontSize="16"/>
@@ -37,7 +62,7 @@
                             <TextBlock Margin="10,0" TextAlignment="Center" Text="Remove" Width="120" Background="Transparent" FontSize="16" FontWeight="Bold"/>
                         </StackPanel>
 
-                        <ListBox x:Name="lstboxParameter" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Width="950">
+                        <!--<ListBox x:Name="lstboxParameter" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Width="950">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Margin="0,10" Orientation="Vertical"/>
@@ -50,9 +75,15 @@
                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                 <StackPanel  Margin="10,5" HorizontalAlignment="Center" Orientation="Horizontal">
                                                     <TextBox Margin="10,0" Width="130" Text="{Binding ParameterName}" Height="30" x:Name="txtboxParameterName"/>
-                                                    <ComboBox Margin="10,0" SelectedItem="{Binding Type}" SelectionChanged="cmboboxType_SelectionChanged"   Height="30" Width="140" x:Name="cmboboxType" >
+                                                    <ComboBox Margin="10,0" SelectedItem="{Binding Type}"  SelectionChanged="cmboboxType_SelectionChanged" Height="30" Width="140" x:Name="cmboboxType" >
+                                                        <ComboBoxItem Content="Integer" FontSize="16"/>
+                                                        <ComboBoxItem Content="Double" FontSize="16"/>
+                                                        <ComboBoxItem Content="String" FontSize="16"/>
+                                                        <ComboBoxItem Content="Integer[]" FontSize="16"/>
+                                                        <ComboBoxItem Content="Double[]" FontSize="16"/>
+                                                        <ComboBoxItem Content="String[]" FontSize="16"/>
                                                     </ComboBox>
-                                                    <TextBox Margin="10,0" Text="{Binding Size}"  Width="130" Height="30" x:Name="txtboxSize"/>
+                                                    <TextBox Margin="10,0" Text="{Binding Size}" Visibility="{Binding Path=cmboboxType.SelectedValue,Converter={StaticResource visCon}}" Width="130" Height="30" x:Name="txtboxSize"/>
                                                     <TextBox Margin="10,0" Text="{Binding LowerBound}" Width="140" Height="30" x:Name="txtboxLowerBound"/>
                                                     <TextBox Margin="10,0" Text="{Binding UpperBound}" Width="140" Height="30" x:Name="txtboxUpperBound"/>
                                                     <Button Margin="10,0" x:Name="btnRemovePAram" Click="btnRemovePAram_Click" Width="120" Height="30" Content="Remove"/>
@@ -62,11 +93,11 @@
                                     </Setter>
                                 </Style>
                             </ListBox.ItemContainerStyle>
-                        </ListBox>
+                        </ListBox>-->
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <TextBlock Margin="10,10,10,0" Text="Input Format" Width="150" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-                        <ComboBox Margin="10,0" SelectedIndex="0" Height="30" Width="140" x:Name="cmboboxType" >
+                        <ComboBox Margin="10,0" SelectedIndex="0" Height="30" Width="140" x:Name="cmboboxDisplayMode">
                             <ComboBoxItem Content="Vertical"/>
                             <ComboBoxItem Content="Horizontal"/>
                         </ComboBox>

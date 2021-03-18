@@ -23,6 +23,7 @@ namespace Coherence
     {
         SortedList<string, List<string>> courseDetails = new SortedList<string, List<string>>();
         public static string connectionString = @"Data Source=DESKTOP-JI48AUG\SQLEXPRESS;Initial Catalog=Coherence;Integrated Security=True";
+        string topic;
 
         public SelectionPage()
         {
@@ -33,9 +34,11 @@ namespace Coherence
         }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
-
-            var obj = new LandingPage(cmboboxCourse.SelectedItem.ToString(), cmboboxTopic.SelectedItem.ToString());
+            var obj = new DisplayQuestions(GetTopicIdByTopicAndCourseName(), cmboboxTopic.SelectedItem.ToString());
             NavigationService.GetNavigationService(this).Navigate(obj);
+
+            //var obj = new LandingPage(cmboboxCourse.SelectedItem.ToString(), cmboboxTopic.SelectedItem.ToString());
+            //NavigationService.GetNavigationService(this).Navigate(obj);
 
         }
 
@@ -91,8 +94,42 @@ namespace Coherence
 
         private void cmboboxCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //topic = cmboboxCourse.SelectedItem.ToString();
             cmboboxTopic.ItemsSource = courseDetails[cmboboxCourse.SelectedItem.ToString()].ToList();
+            
         }
 
+        private int GetTopicIdByTopicAndCourseName()
+        {
+            int id = 0;
+            try
+            {
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    con.Open();
+
+                    cmd.CommandText = "select TopicId from CourseTopics where Topic='" + topic + "'";
+                    var res = cmd.ExecuteScalar();
+                    id = int.Parse(res.ToString());
+
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+
+            return id;
+        }
+
+        private void cmboboxTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            topic = cmboboxTopic.SelectedItem.ToString();
+            btnNext.IsEnabled = true;
+        }
     }
 }

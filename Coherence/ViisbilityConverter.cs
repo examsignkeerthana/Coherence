@@ -14,7 +14,7 @@ namespace Coherence
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string val = value.ToString();
-            Visibility visibility = Visibility.Collapsed;
+            Visibility visibility = Visibility.Hidden;
             if (val == "Integer[]" || val == "String[]" || val == "Double[]")
             {
                 visibility = Visibility.Visible;

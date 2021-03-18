@@ -24,7 +24,7 @@ namespace Coherence
     {
         public static string connectionString = @"Data Source=DESKTOP-JI48AUG\SQLEXPRESS;Initial Catalog=Coherence;Integrated Security=True";
         int quesId;
-        int topicId;
+        //int topicId;
         ObservableCollection<String> sample = new ObservableCollection<string>();
         ObservableCollection<QuestionModel> question = new ObservableCollection<QuestionModel>();
 
@@ -35,7 +35,7 @@ namespace Coherence
         public Question(int id)
         {
             InitializeComponent();
-            topicId = id;
+            quesId = id;
 
             sample.Add("Sample Input");
             lstboxSampleInput.ItemsSource = sample;
@@ -131,7 +131,7 @@ namespace Coherence
             questionModel.IsHint = HasHint();
             questionModel.Hint = txtboxHint.Text;
 
-            InsertQuestion(GetMaxQuestionId() + 1, topicId, questionModel.QuestionStem, questionModel.IsHint, questionModel.Hint);
+            //InsertQuestion(GetMaxQuestionId() + 1, topicId, questionModel.QuestionStem, questionModel.IsHint, questionModel.Hint);
             quesId = GetMaxQuestionId();
             questionModel.Qid = quesId;
             question.Add(questionModel);
@@ -184,8 +184,12 @@ namespace Coherence
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
-           var obj= new Question(topicId);
+            //var obj= new Question(topicId);
+            //NavigationService.GetNavigationService(this).Navigate(obj);
+
+            var obj = new DisplayQuestions();//provide topicId & topic
             NavigationService.GetNavigationService(this).Navigate(obj);
+
         }
 
         private void btnAddTestCase_Click(object sender, RoutedEventArgs e)

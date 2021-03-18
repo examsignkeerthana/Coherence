@@ -28,6 +28,10 @@ namespace Coherence
         public int HasAlternate { get; set; }
 
         public string AlternateId { get; set; }
+
+        public int SampleTestCaseCount { get; set; }
+
+        public int TestCaseCount { get; set; }
     }
     class TestCaseModel : INotifyPropertyChanged
     {
@@ -117,17 +121,18 @@ namespace Coherence
             }
         }
 
-        string _selectedType;
-        public string SelectedType
+        bool _selectedType;
+        public bool SelectedType
         {
             get
             {
+               // return this._type == "Ingerer[]" || this._type == "Double[]" || this._type == "String[]";
                 return _selectedType;
             }
             set
             {
                 _selectedType = value;
-                OnPropertyRaised(SelectedType);
+                OnPropertyRaised(SelectedType.ToString());
             }
         }
 

@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.IO;
-using System.Text;
 
 namespace Coherence
 {
@@ -46,12 +45,13 @@ namespace Coherence
         {
             InitializeComponent();
             quesId = id;
-           // cmboboxType.ItemsSource = type;
+          
         }
 
         
         private void btnAddParam_Click(object sender, RoutedEventArgs e)
         {
+            //cmboboxType.ItemsSource = type;
             par.Clear();
             int count = int.Parse(txtboxParameter.Text);
 
@@ -60,15 +60,15 @@ namespace Coherence
                 par.Add(new Parameter 
                 {ParameterName="",
                 Type="",
+                Size="",
                 LowerBound="",
                 UpperBound=""
                 });
-
             }
 
-            lstboxParameter.ItemsSource = par;
+            //lstboxParameter.ItemsSource = par;
 
-
+            
         }
 
         private void btnRemovePAram_Click(object sender, RoutedEventArgs e)
@@ -102,10 +102,11 @@ namespace Coherence
 
         private void GenreateFile(int Qid)
         {
+            int i = 1;
             foreach (TestCaseModel item in tcm)
             {
-                string input = "Input.txt";
-                string output = "Output.txt";
+                string input = "Input"+i+".txt";
+                string output = "Output"+i+".txt";
                 string tempfolderpath = System.IO.Path.GetTempPath();
 
                 string _inputPath = System.IO.Path.Combine(tempfolderpath, input);
@@ -113,16 +114,18 @@ namespace Coherence
 
                 StreamWriter sw = new StreamWriter(_inputPath, true, Encoding.ASCII);
                 sw.Write(item.Input);
+                sw.Flush();
                 sw.Close();
 
                 StreamWriter writer = new StreamWriter(_outputPath, true, Encoding.ASCII);
                 writer.Write(item.Output);
+                writer.Flush();
                 writer.Close();
 
                 InsertTestCases(Qid, _inputPath, _outputPath);
-                File.Delete(_inputPath);
-                File.Delete(_outputPath);
-
+                // File.Delete(_inputPath);
+                // File.Delete(_outputPath);
+                i++;
             }
         }
 

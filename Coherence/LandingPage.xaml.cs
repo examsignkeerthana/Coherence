@@ -22,17 +22,18 @@ namespace Coherence
     public partial class LandingPage : Page
     {
         public static string connectionString = @"Data Source=DESKTOP-JI48AUG\SQLEXPRESS;Initial Catalog=Coherence;Integrated Security=True";
-        int topicId;
+        int qid;
         public LandingPage()
         {
             InitializeComponent();
         }
-        public LandingPage(string crs, string topic)
+        public LandingPage(int id)
         {
             InitializeComponent();
 
-            topicId = GetTopicIdByTopicAndCourseName(crs, topic);
-            QuesFrame.NavigationService.Navigate(new Question(topicId));
+            // topicId = GetTopicIdByTopicAndCourseName(crs, topic);
+            qid = id;
+            QuesFrame.NavigationService.Navigate(new Question(qid));
 
         }
 
@@ -75,13 +76,13 @@ namespace Coherence
             {
                 case 0:
 
-                    QuesFrame.NavigationService.Navigate(new Question(topicId));
+                    QuesFrame.NavigationService.Navigate(new Question());
                     break;
                 case 1:
 
                     
 
-                    QuesFrame.NavigationService.Navigate(new Challange(Ques.GetQuesId()));
+                    QuesFrame.NavigationService.Navigate(new Challange(qid));
 
                     //var obj1 = new Challange(topicId);
                     //NavigationService.GetNavigationService(this).Navigate(obj1);
@@ -93,7 +94,7 @@ namespace Coherence
                     break;
                 case 2:
 
-                   // QuesFrame.NavigationService.Navigate(new Allternate(Ques.GetQuesId()));
+                  QuesFrame.NavigationService.Navigate(new Alternate());
 
                     //var obj2 = new Alternate(topicId);
                     //NavigationService.GetNavigationService(this).Navigate(obj2);
